@@ -17,7 +17,7 @@ Using worker service template in order to create long-running cross-platform ser
 >>
 >> :pushpin: [azure container instance](https://devblogs.microsoft.com/aspnet/dotnet-core-workers-in-azure-container-instances/)
 >
-> In this repo, the worker display features from configuration file based on 3 strategies :
+> In this repo, the worker displays features from configuration file based on 3 strategies :
 >
 > :one: `ConfigurationOptionsService` : static reading of configuration features
 >
