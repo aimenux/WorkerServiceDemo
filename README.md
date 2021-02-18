@@ -31,7 +31,7 @@ Using worker service template in order to create long-running cross-platform ser
 >>
 >> :white_check_mark: Publish to some folder : `dotnet publish -o [PATH-TO-FOLDER]`
 >>
->> :white_check_mark: Create windows service : `sc create [SERVICE-NAME] binPath=[PATH-TO-FOLDER]\App.exe`
+>> :white_check_mark: Create windows service : `sc create [SERVICE-NAME] binPath=[PATH-TO-FOLDER]\[App.exe]`
 >>
 >> :white_check_mark: Delete windows service : `sc delete [SERVICE-NAME]`
 >
