@@ -7,7 +7,9 @@ Using worker service template in order to create long-running cross-platform ser
 
 > In this repo, i m building a long running background service based on [worker service template](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-5.0&tabs=visual-studio#worker-service-template).
 >
-> The worker display configuration features based on 3 strategies :
+> Worker services are a great way to deploy cross-plateform services (windows, linux, docker, [azure container instance](https://devblogs.microsoft.com/aspnet/dotnet-core-workers-in-azure-container-instances/)).
+>
+> In this repo, the worker display features from configuration file based on 3 strategies :
 >
 > :one: `ConfigurationOptionsService` : static reading of configuration features
 >
@@ -15,9 +17,7 @@ Using worker service template in order to create long-running cross-platform ser
 >
 > :three: `ConfigurationOptionsMonitorService` : dynamic reading of configuration features
 >
-> The worker could be published and deployed either on windows or linux. 
->
-> In order to deploy the worker as a windows service, type the following commands :
+> In order to deploy the worker as a windows service, type the following commands in your terminal :
 >
 > :white_check_mark: Build in release mode : `dotnet build -c release`
 >
