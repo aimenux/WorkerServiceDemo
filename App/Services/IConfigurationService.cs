@@ -1,9 +1,8 @@
 ﻿using App.Models;
 
-namespace App.Services
+namespace App.Services;
+
+public interface IConfigurationService
 {
-    public interface IConfigurationService
-    {
-        Features GetFeatures();
-    }
+    Features GetFeatures();
 }

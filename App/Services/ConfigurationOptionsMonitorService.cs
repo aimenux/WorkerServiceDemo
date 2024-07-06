@@ -1,17 +1,16 @@
 ﻿using App.Models;
 using Microsoft.Extensions.Options;
 
-namespace App.Services
+namespace App.Services;
+
+public class ConfigurationOptionsMonitorService : IConfigurationService
 {
-    public class ConfigurationOptionsMonitorService : IConfigurationService
+    private readonly IOptionsMonitor<Features> _options;
+
+    public ConfigurationOptionsMonitorService(IOptionsMonitor<Features> options)
     {
-        private readonly IOptionsMonitor<Features> _options;
-
-        public ConfigurationOptionsMonitorService(IOptionsMonitor<Features> options)
-        {
-            _options = options;
-        }
-
-        public Features GetFeatures() => _options.CurrentValue;
+        _options = options;
     }
+
+    public Features GetFeatures() => _options.CurrentValue;
 }

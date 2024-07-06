@@ -6,53 +6,52 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace App.Workers
+namespace App.Workers;
+
+public class HostedService : BackgroundService
 {
-    public class HostedService : BackgroundService
+    private readonly ICustomLogger _logger;
+    private readonly IConsoleRender _render;
+    private readonly IEnumerable<IConfigurationService> _services;
+    private static readonly TimeSpan Delay = TimeSpan.FromSeconds(5);
+
+    public HostedService(IEnumerable<IConfigurationService> services, IConsoleRender render, ICustomLogger logger)
     {
-        private readonly ICustomLogger _logger;
-        private readonly IConsoleRender _render;
-        private readonly IEnumerable<IConfigurationService> _services;
-        private static readonly TimeSpan Delay = TimeSpan.FromSeconds(5);
+        _services = services;
+        _render = render;
+        _logger = logger;
+    }
 
-        public HostedService(IEnumerable<IConfigurationService> services, IConsoleRender render, ICustomLogger logger)
+    public override async Task StartAsync(CancellationToken stoppingToken)
+    {
+        _logger.LogToAllLevels("Starting worker");
+
+        await base.StartAsync(stoppingToken);
+    }
+
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        _logger.LogToAllLevels("Running worker");
+
+        while (!stoppingToken.IsCancellationRequested)
         {
-            _services = services;
-            _render = render;
-            _logger = logger;
-        }
+            _render.RenderMessage($"{DateTime.Now:F}");
 
-        public override async Task StartAsync(CancellationToken stoppingToken)
-        {
-            _logger.LogToAllLevels("Starting worker");
-
-            await base.StartAsync(stoppingToken);
-        }
-
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            _logger.LogToAllLevels("Running worker");
-
-            while (!stoppingToken.IsCancellationRequested)
+            foreach (var configurationService in _services)
             {
-                _render.RenderMessage($"{DateTime.Now:F}");
-
-                foreach (var configurationService in _services)
-                {
-                    var title = configurationService.GetType().Name;
-                    var features = configurationService.GetFeatures();
-                    _render.RenderFeatures(title, features);
-                }
-
-                await Task.Delay(Delay, stoppingToken);
+                var title = configurationService.GetType().Name;
+                var features = configurationService.GetFeatures();
+                _render.RenderFeatures(title, features);
             }
-        }
 
-        public override async Task StopAsync(CancellationToken stoppingToken)
-        {
-            _logger.LogToAllLevels("Stopping worker");
-
-            await base.StopAsync(stoppingToken);
+            await Task.Delay(Delay, stoppingToken);
         }
+    }
+
+    public override async Task StopAsync(CancellationToken stoppingToken)
+    {
+        _logger.LogToAllLevels("Stopping worker");
+
+        await base.StopAsync(stoppingToken);
     }
 }

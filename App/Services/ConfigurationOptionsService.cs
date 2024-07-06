@@ -1,17 +1,16 @@
 ﻿using App.Models;
 using Microsoft.Extensions.Options;
 
-namespace App.Services
+namespace App.Services;
+
+public class ConfigurationOptionsService : IConfigurationService
 {
-    public class ConfigurationOptionsService : IConfigurationService
+    private readonly IOptions<Features> _options;
+
+    public ConfigurationOptionsService(IOptions<Features> options)
     {
-        private readonly IOptions<Features> _options;
-
-        public ConfigurationOptionsService(IOptions<Features> options)
-        {
-            _options = options;
-        }
-
-        public Features GetFeatures() => _options.Value;
+        _options = options;
     }
+
+    public Features GetFeatures() => _options.Value;
 }

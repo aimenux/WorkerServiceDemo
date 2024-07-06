@@ -1,7 +1,6 @@
-﻿namespace App.Helpers
+﻿namespace App.Helpers;
+
+public interface ICustomLogger
 {
-    public interface ICustomLogger
-    {
-        void LogToAllLevels(string message);
-    }
+    void LogToAllLevels(string message);
 }

@@ -36,4 +36,4 @@ Using worker service template in order to create long-running cross-platform ser
 >> :white_check_mark: Delete windows service : `sc delete [SERVICE-NAME]`
 >
 
-**`Tools`** : vs19, net 5.0
+**`Tools`** : net 8.0
